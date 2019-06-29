@@ -70,3 +70,29 @@ Click 'Subscribe' to add your current browser's token to your Firestore. You sho
 Then, click 'Send Notification' to send a test push notification. There are a couple of things to keep in mind here.
 * Most browsers will not display a push notification if the website is on an active tab. To combat this, there is a **3 second delay** implemented in the client side code so you should switch tabs or minimize the browser after you click the button.
 * If you are running this project locally, it will probably not send the notification due to a lack of feature implementation on Firebase. So you should run `firebase deploy` over `firebase serve`.
+
+
+## Further learning
+### Firestore Document Structure for Tokens
+This is the required format for the subscription document in Firestore. Here, the `token` is stored so Firebase knows *where* to send the notifications.
+If you are not sure how to subscribe a user to Firebase push notifications, keep reading.
+```js
+// notifications/subscriptions/all/{subscriptionId}
+{
+  token: 'tokenId',
+}
+```
+
+### Firestore Document Structure for Notifications
+This is the required format for the notification document in Firestore. Here, the notification `payload` is stored so Firebase knows *what* to send in the notifications.
+```js
+// notifications/processing/all/{notificationId}
+payload: {
+  icon: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg', // Link to notification icon
+  click_action: 'https://google.com', // URL click action
+  title: 'Hello world!',
+  body: 'This is my first push notification using Push Manager!',
+}
+```
+
+The Firestore documents for both the *tokens* and the *notifications* can have other data, but both must *at least* have the above data for push-manager to work properly.
