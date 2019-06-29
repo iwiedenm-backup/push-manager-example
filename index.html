@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Push Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="wrapper">
+    <main>
+      <header>
+        <h1>Push Manager</h1>
+        <p><em>A simple application to subscribe to push notifications and send them.</em></p>
+      </header>
+
+      <button id="subscribe" onclick="checkSubscription();">
+        Subscribe
+      </button>
+
+      <button id="notification" onclick="sendNotification();">
+        Send Notification
+      </button>
+
+    </main>
+
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="/__/firebase/6.2.4/firebase.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script type="text/javascript">
+  function checkSubscription() {
+    return firebase.messaging().getToken()
+      .then(function(token) {
+        if (token) {
+          return firebase.firestore().doc('notifications/subscriptions/all' + token)
+            .get()
+            .then(function (documentSnapshot) {
+              if (documentSnapshot.exists == false) {
+                // console.log('$$$ Is NOT subscribed in firestore, subscribing now.');
+                updateSubscription(token)
+                .then(function () {
+                  // console.log('$$$ Subscribe DONE');
+                })
+              } else {
+                // console.log('$$$ Is ALREADY subscribed in firestore.');
+              }
+            })
+            .catch(function(e) {
+              console.error('Failed to get Firestore doc:', e);
+            });
+        } else {
+          console.error('Failed to get token:', e);
+        }
+      })
+      .catch(function(e) {
+        console.error('Failed to get token:', e);
+      });
+  }
+
+  function updateSubscription(token) {
+    return firebase.firestore().doc('notifications/subscriptions/all' + token)
+      .set(
+        {
+          token: token,
+        },
+        {
+          merge: true
+        }
+      )
+      .catch(function(e) {
+        console.error('Failed to set Firestore doc:', e);
+      });
+  }
+
+  function sendNotification() {
+    return firebase.firestore().collection('notifications/processing/list')
+      .add(
+        {
+          payload: {
+            icon: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg', // Link to notification icon
+            click_action: 'https://google.com', // URL click action
+            title: 'Hello world!',
+            body: 'This is my first push notification using Push Manager!',
+          },
+        }
+      )
+      .catch(function(e) {
+        console.error('Failed to set Firestore doc:', e);
+      });
+  }
+
+  </script>
+</body>
+</html>
