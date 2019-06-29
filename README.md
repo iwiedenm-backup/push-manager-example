@@ -3,15 +3,21 @@
 ## Get Started
 ### 1. Clone
 Clone this repository to your computer via GitHub desktop or command line
+```shell
+# Clone this repository
+git clone https://github.com/itw-creative-works/push-manager-example
+# Go into the repository
+cd push-manager-example
+```
 
-### 2. Clone
+### 2. Create Firebase project
 Create a Firebase project in your firebase console [https://console.firebase.google.com](https://console.firebase.google.com). For example, we'll call our project `push-manager-example`.
 You may also have to manually create a Firestore database by going to 'Database' on the left panel and then clicking 'Create database', and then selecting 'Test mode'.
 
 ### 3. Initialize Firebase
 Initialize Firebase
 ```shell
-cd your/push-manager-example/directory/
+cd push-manager-example
 init firebase
 ```
 
