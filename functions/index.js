@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-exports.processNotification = functions
+exports.processNotification2 = functions
 .firestore
 .document('notifications/processing/all/{notificationId}') // Feel free to change the path
 .onCreate(async (snap, context) => {
