@@ -71,7 +71,7 @@ firebase deploy
 After it has finished deploying, navigate to [https://push-manager-example.web.app/](https://push-manager-example.web.app/) (replace `push-manager-example` with your project ID).
 
 ### 9. Subscribe and Send Notifications
-Click 'Subscribe' to add your current browser's token to your Firestore. You should see a popup that request permission to receive notifications, so click 'Yes', or 'Enable'.
+Click 'Subscribe' to add your current browser's token to your Firestore. You should see a popup that requests permission to receive notifications, so click 'Yes', or 'Enable'.
 
 Then, click 'Send Notification' to send a test push notification. There are a couple of things to keep in mind here.
 * Most browsers will not display a push notification if the website is on an active tab. To combat this, there is a **3 second delay** implemented in the client side code so you should switch tabs or minimize the browser after you click the button.
