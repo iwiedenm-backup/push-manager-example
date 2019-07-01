@@ -81,7 +81,6 @@ Then, click 'Send Notification' to send a test push notification. There are a co
 ## Further learning
 ### Firestore Document Structure for Tokens
 This is the required format for the subscription document in Firestore. Here, the `token` is stored so Firebase knows *where* to send the notifications.
-If you are not sure how to subscribe a user to Firebase push notifications, keep reading.
 ```js
 // notifications/subscriptions/all/{subscriptionId}
 {
@@ -93,11 +92,13 @@ If you are not sure how to subscribe a user to Firebase push notifications, keep
 This is the required format for the notification document in Firestore. Here, the notification `payload` is stored so Firebase knows *what* to send in the notifications.
 ```js
 // notifications/processing/all/{notificationId}
-payload: {
-  icon: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg', // Link to notification icon
-  click_action: 'https://google.com', // URL click action
-  title: 'Hello world!',
-  body: 'This is my first push notification using Push Manager!',
+{
+  payload: {
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg', // Link to notification icon
+    click_action: 'https://google.com', // URL click action
+    title: 'Hello world!',
+    body: 'This is my first push notification using Push Manager!',
+  }  
 }
 ```
 
